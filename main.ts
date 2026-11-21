@@ -85,6 +85,12 @@ function fillEllipse(cx: number, cy: number, rx: number, ry: number, c: RGB): vo
 }
 
 function line(x0: number, y0: number, x1: number, y1: number, c: RGB): void {
+  // Round first: Bresenham only terminates on integer endpoints (a fractional
+  // y1, e.g. from the birds' wing tips, never equals an integer-stepped y).
+  x0 = Math.round(x0);
+  y0 = Math.round(y0);
+  x1 = Math.round(x1);
+  y1 = Math.round(y1);
   const dx = Math.abs(x1 - x0);
   const dy = -Math.abs(y1 - y0);
   const sx = x0 < x1 ? 1 : -1;
